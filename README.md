@@ -1,13 +1,15 @@
 # React + Vite
 
-# ¿Qué diferencia hay entre state y props?
+# ¿Qué diferencia hay entre pasar datos y pasar funciones como props?
 
-state son estados entre los componentes y props son las propiedades de un componente padre a hijo
+con props ,se puede ejecutar de padre a hijo y igual funciones
+si el hijo necesita mostrar algo, pasa un dato, si el hijo necesita hacer
+algo pasa una funcion
 
-# ¿Qué pasa cuando cambias un state?
+# ¿Por qué el estado debe estar en App y no en ContactCard?
 
-se cambia el estado de un componente y se re renderiza
+es mas facil de manejar, y administrar
 
-# ¿Cómo se comunican los componentes?
+# ¿Cómo se ejecuta una función que recibimos como prop?
 
-creo que con los state ,hooks y propts
+a traves de una funcion (), a traves de un evento

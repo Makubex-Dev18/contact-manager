@@ -4,6 +4,9 @@ import { useState } from "react";
 import Header from "./components/Header.jsx";
 import ContactList from "./components/ContactList.jsx";
 import Footer from "./components/Footer.jsx";
+import ContactCard from "./components/ContactCard.jsx";
+import Filter from "./components/Filter.jsx";
+import ContactClear from "./components/ContactClear.jsx";
 
 export default function App() {
   //paso2 para crear el state de selectedContact
@@ -15,9 +18,7 @@ export default function App() {
     isFavorite: true,*/
   );
 
-  const [showOnlyFavorites,setShowOnlyFavorites]= useState(false);
-
-
+  const [showOnlyFavorites, setShowOnlyFavorites] = useState(false);
 
   const [contacts, setContacts] = useState([
     {
@@ -52,44 +53,44 @@ export default function App() {
     borderRadius: 8,
   };
 
-  const estiloBoton = {
-    backgroundColor: "#2f7cff",
-    border: "none",
-    padding: "10px 12px",
-    color: "#fff",
-    borderRadius: 8,
-  };
-
-  const estiloMostrarFav ={
-    marginTop:40,
-    marginBottom:40,
-  };
-
-
-
-
-
-
-
   //mejor forma  de crear una funcion y usar handle ese nombre es recomedado para funciones que manejan eventos y cambien estados
   //handleSelectContact es una funcion que recibe un contacto y lo setea como el contacto seleccionado
   //la funcion setSelectedContact es la que actualiza el estado de selectedContact
   const handleSelectContact = (contact) => {
     console.log({ contact });
+    alert(`Seleccionaste el contacto: ${contact.name}`);
     setSelectedContact(contact);
   };
 
+  const handleClearContact = () => {
+    setSelectedContact(null);
+  };
 
   let contactsToShow = contacts;
-  if(showOnlyFavorites){
-    contactsToShow=contacts.filter((contact)=>contact.isFavorite);
-  }
 
+  const filterFavorites = () =>
+    contacts.filter((contact) => contact.isFavorite);
+
+  if (showOnlyFavorites) {
+    contactsToShow = filterFavorites();
+  }
 
   const handleChangeFavorite = (event) => {
     console.log(event);
-    setShowOnlyFavorites(event.target.checked)
-  }
+    setShowOnlyFavorites(event.target.checked);
+  };
+
+  const handleNextContact = (selectedContact) => {
+    const currentIndex = contactsToShow.findIndex(
+      (contact) => contact.id === selectedContact.id
+    );
+
+    if (currentIndex === contactsToShow.length - 1) {
+      setSelectedContact(contactsToShow[0]);
+      return;
+    }
+    setSelectedContact(contactsToShow[currentIndex + 1]);
+  };
 
   const toggleFavorite = (id) => {
     const updatedContacts = contacts.map((contact) => {
@@ -122,36 +123,26 @@ export default function App() {
 
   return (
     <div>
-      <Header />
+      <Header filterFavorites={filterFavorites} />
       <main>
-        <section style={estiloMostrarFav}>
-          <label htmlFor="">
-          <h3>Filtros</h3>
-          <input type="checkbox"  onClick={handleChangeFavorite} />  Mostrar Favoritos
-          </label>
-        </section>
+        <Filter handleChangeFavorite={handleChangeFavorite} />
+        <p />
+        <ContactClear handleClearContact={handleClearContact} />
+        <ContactList
+          contactsToShow={contactsToShow}
+          toggleFavorite={toggleFavorite}
+          handleSelectContact={handleSelectContact}
+          selectedContact={selectedContact}
+          onSelectContact={handleSelectContact}
+        />
+        <h2 style={estiloSection}>Mis Lista de Contactos:</h2>
 
         <section style={estiloSection}>
-          {contactsToShow.map((contact) => (
-            <div key={contact.id}>
-              {/*  <h3>{contact.name}</h3> }
-          {    <p>{contact.phone}</p> */}
-              <button
-                style={estiloBoton}
-                onClick={() => handleSelectContact(contact)}
-              >
-                Contact {contact.id}
-              </button>
-            </div>
-          ))}
-        </section>
-        <section style={estiloSection}>
-          {selectedContact ? (
-            <ContactList
-              contact={selectedContact}
-              toggleFavorite={toggleFavorite}
-            />
-          ) : null}
+          <ContactCard
+            contact={selectedContact}
+            toggleFavorite={toggleFavorite}
+            handleNextContact={handleNextContact}
+          />
         </section>
       </main>
       <section style={estiloSection}>
