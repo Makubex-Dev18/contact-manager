@@ -1,7 +1,11 @@
 export default function Filter({ handleChangeFavorite }) {
   const estiloMostrarFav = {
-    marginTop: 40,
-    marginBottom: 40,
+    display: "flex",
+    justifyContent: "center",
+    marginTop: 10,
+    marginBottom: 10,
+    margin: 1,
+    gap: 1,
   };
 
   return (

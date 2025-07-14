@@ -111,6 +111,8 @@ export default function App() {
 
   let contactsToShow = contacts;
 
+  const contactsCount = () => contacts.length;
+
   const filterFavorites = () =>
     contacts.filter((contact) => contact.isFavorite);
 
@@ -168,6 +170,11 @@ export default function App() {
     console.log(updateContact);
   }
 
+  function handleDeleteContact(id) {
+    const updatedContacts = contacts.filter((contact) => contact.id !== id);
+    setContacts(updatedContacts);
+    setSelectedContact(null); // También limpiamos el contacto seleccionado si se eliminó
+  }
   //los estados estan siempre antes de la funcion return
 
   // const valorQueNoCambia = "Enter Tech School";
@@ -176,7 +183,7 @@ export default function App() {
 
   return (
     <div>
-      <Header filterFavorites={filterFavorites} />
+      <Header filterFavorites={filterFavorites} contactsCount={contactsCount} />
       <main>
         <ContactForm handleAddContact={handleAddContact} />
         <Filter handleChangeFavorite={handleChangeFavorite} />
@@ -196,6 +203,7 @@ export default function App() {
             contact={selectedContact}
             toggleFavorite={toggleFavorite}
             handleNextContact={handleNextContact}
+            handleDeleteContact={handleDeleteContact}
           />
         </section>
       </main>

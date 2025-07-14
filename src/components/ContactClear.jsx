@@ -1,7 +1,11 @@
 export default function ContactClear({ handleClearContact }) {
   return (
     <section>
-      <button onClick={handleClearContact}>Limpiar</button>
+      <div
+        style={{ display: "flex", justifyContent: "center", marginBottom: 30 }}
+      >
+        <button onClick={handleClearContact}>Limpiar Seleccion</button>
+      </div>
     </section>
   );
 }

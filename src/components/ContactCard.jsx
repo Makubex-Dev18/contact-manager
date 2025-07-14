@@ -2,6 +2,7 @@ export default function ContactCard({
   contact,
   toggleFavorite,
   handleNextContact,
+  handleDeleteContact,
 }) {
   return (
     <div style={{ color: "blue", fontFamily: "Roboto" }}>
@@ -16,6 +17,12 @@ export default function ContactCard({
             {contact?.isFavorite ? "Quitar Favorito" : "Agregar Favorito"}
           </button>
           <button onClick={() => handleNextContact(contact)}>Siguiente</button>
+          <button
+            onClick={() => handleDeleteContact(contact.id)}
+            style={{ color: "red" }}
+          >
+            Eliminar Contacto
+          </button>
         </>
       ) : (
         <p>No hay un contacto seleccionado</p>

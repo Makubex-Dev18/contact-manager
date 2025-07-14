@@ -1,15 +1,20 @@
 //Poner useState para usarse no viene en el snipperts por rfc por defecto
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 
 export default function ContactForm({ handleAddContact }) {
   const estiloFormulario = {
     display: "flex",
-    margin: 2,
-
+    justifyContent: "center",
+    margin: 3,
     gap: 2,
   };
 
   const [formData, setFormData] = useState({
+    name: "",
+    phone: "",
+  });
+
+  const [errors, setErrors] = useState({
     name: "",
     phone: "",
   });
@@ -25,16 +30,40 @@ export default function ContactForm({ handleAddContact }) {
   const handleSubmit = (event) => {
     event.preventDefault(); //evita que se recarge la pagina
 
+    // Validación simple
+    let newErrors = { name: "", phone: "" };
+    let valid = true;
+
+    // Validar nombre (solo letras y espacios)
+    if (!/^[a-zA-Z\s]+$/.test(formData.name.trim())) {
+      newErrors.name = "El nombre solo debe contener letras";
+      valid = false;
+    }
+
+    // Validar teléfono (solo números)
+    if (!/^\d+$/.test(formData.phone.trim())) {
+      newErrors.phone = "El teléfono solo debe contener números";
+      valid = false;
+    }
+
+    setErrors(newErrors);
+
+    if (!valid) return;
+
     handleAddContact({
       name: formData.name,
       phone: formData.phone,
-      isFavorite: false
+      isFavorite: false,
     });
+
+    // Limpiar el formulario
+    setFormData({ name: "", phone: "" });
+    setErrors({ name: "", phone: "" });
   };
 
   return (
     <form onSubmit={handleSubmit} style={{ estiloFormulario }}>
-      <h3>Agregar Nuevo Contacto</h3>
+      <h3 style={estiloFormulario}>Agregar Nuevo Contacto</h3>
 
       {/* Input de nombre controlado */}
       <div style={estiloFormulario}>
@@ -47,6 +76,9 @@ export default function ContactForm({ handleAddContact }) {
           style={estiloFormulario}
         />
       </div>
+      {errors.name && (
+        <p style={{ color: "red", textAlign: "center" }}>{errors.name}</p>
+      )}
 
       {/* Input de teléfono controlado */}
       <div style={estiloFormulario}>
@@ -59,8 +91,12 @@ export default function ContactForm({ handleAddContact }) {
           style={estiloFormulario}
         />
       </div>
-
-      <button type="submit">Agregar Contacto</button>
+      <div style={estiloFormulario}>
+        <button type="submit">Agregar Contacto</button>
+      </div>
+      {errors.phone && (
+        <p style={{ color: "red", textAlign: "center" }}>{errors.phone}</p>
+      )}
     </form>
   );
 }

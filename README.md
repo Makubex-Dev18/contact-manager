@@ -1,13 +1,33 @@
 # React + Vite
 
-# ¿Qué ventajas tienen los formularios controlados sobre los no controlados?
+# README completo incluyendo:
 
-que es mas facil administrar los componentes y sus estados
+# Stack tecnológico utilizado
 
-# ¿Por qué usar spread operator en lugar de push() para agregar elementos?
+react,js
 
-push modifica el array añadiendo y spread operator crea uno nuevo
+# Instrucciones de instalación y uso
 
-# ¿Cuándo prefieres validar onChange vs onSubmit y por qué?
+ninguna
 
-el onchange cuando se va cambiando algun elemento y submit cuando se envia el boton en el formulario
+# Funcionalidades implementadas (core + retos)
+
+*lista de contactos
+*agregacion de contactos
+*validacion de datos nombre
+*validacion de datos telefono
+*filtros de favoritos
+*alerta de seleccion
+*boton de limpieza seleccion contacto
+*estructura de componentes correcta
+*total de contactoS
+*total de contactos favoritos
+*eliminacion de contacto seleccionado
+*agregacion de favorito contacto
+\*boton siguiente contacto lista
+
+# Decisiones técnicas y patterns aplicados
+
+# Screenshots de la aplicación
+
+# URL del deploy
