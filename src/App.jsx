@@ -7,6 +7,7 @@ import Footer from "./components/Footer.jsx";
 import ContactCard from "./components/ContactCard.jsx";
 import Filter from "./components/Filter.jsx";
 import ContactClear from "./components/ContactClear.jsx";
+import ContactForm from "./components/ContactForm.jsx";
 
 export default function App() {
   //paso2 para crear el state de selectedContact
@@ -17,6 +18,36 @@ export default function App() {
     phone: "123-456-7890",
     isFavorite: true,*/
   );
+
+  //estado para el formulario
+  const [nameContact, setNameContact] = useState("");
+  const handleContact = (event) => {
+    setNameContact(event.target.value);
+  };
+
+  const handleSubmit = (event) => {
+    //con esto evitamos refrescar la pagina en el formulario
+    event.preventDefault();
+    //aqui viene la logica para agregar un nuevo contacto
+    /*contacts.push({
+      id: contacts.length + 1,
+      name: nameContact,
+      isFavorite: false,
+      phone: "+51 999999999",
+    });
+    */
+    //spread operator
+    setContacts([
+      ...contacts,
+      {
+        id: contacts.length + 1,
+        name: nameContact,
+        isFavorite: false,
+        phone: "+51 999999999",
+      },
+    ]);
+    console.log(contacts);
+  };
 
   const [showOnlyFavorites, setShowOnlyFavorites] = useState(false);
 
@@ -37,6 +68,18 @@ export default function App() {
       id: 3,
       name: "Alice Johnson",
       phone: "555-555-5555",
+      isFavorite: true,
+    },
+    {
+      id: 4,
+      name: "Juan Garcia",
+      phone: "984-123-5555",
+      isFavorite: true,
+    },
+    {
+      id: 5,
+      name: "Miranda Williams",
+      phone: "123-455-8935",
       isFavorite: true,
     },
   ]);
@@ -115,6 +158,16 @@ export default function App() {
     console.log(updatedContacts);
   };
 
+  function handleAddContact(newContact) {
+    const lastId =
+      contacts.length > 0 ? Math.max(...contacts.map((c) => c.id)) : 0;
+
+    const updatedContact = { id: lastId + 1, ...newContact };
+    const updateContact = [...contacts, updatedContact];
+    setContacts(updateContact);
+    console.log(updateContact);
+  }
+
   //los estados estan siempre antes de la funcion return
 
   // const valorQueNoCambia = "Enter Tech School";
@@ -125,6 +178,7 @@ export default function App() {
     <div>
       <Header filterFavorites={filterFavorites} />
       <main>
+        <ContactForm handleAddContact={handleAddContact} />
         <Filter handleChangeFavorite={handleChangeFavorite} />
         <p />
         <ContactClear handleClearContact={handleClearContact} />
