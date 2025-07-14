@@ -1,15 +1,13 @@
 # React + Vite
 
-# ¿Qué diferencia hay entre pasar datos y pasar funciones como props?
+# ¿Qué ventajas tienen los formularios controlados sobre los no controlados?
 
-con props ,se puede ejecutar de padre a hijo y igual funciones
-si el hijo necesita mostrar algo, pasa un dato, si el hijo necesita hacer
-algo pasa una funcion
+que es mas facil administrar los componentes y sus estados
 
-# ¿Por qué el estado debe estar en App y no en ContactCard?
+# ¿Por qué usar spread operator en lugar de push() para agregar elementos?
 
-es mas facil de manejar, y administrar
+push modifica el array añadiendo y spread operator crea uno nuevo
 
-# ¿Cómo se ejecuta una función que recibimos como prop?
+# ¿Cuándo prefieres validar onChange vs onSubmit y por qué?
 
-a traves de una funcion (), a traves de un evento
+el onchange cuando se va cambiando algun elemento y submit cuando se envia el boton en el formulario
