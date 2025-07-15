@@ -6,6 +6,13 @@ export default function Filter({ handleChangeFavorite }) {
     marginBottom: 10,
     margin: 1,
     gap: 1,
+    border: "1px solid green",
+    borderRadius: "10px",
+    padding: "10px",
+    maxWidth: "200px",
+    margin: "20px auto",
+    backgroundColor: "default",
+    boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
   };
 
   return (

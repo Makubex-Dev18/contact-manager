@@ -62,7 +62,19 @@ export default function ContactForm({ handleAddContact }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ estiloFormulario }}>
+    <form
+      onSubmit={handleSubmit}
+      style={{
+        border: "1px solid #ccc",
+        borderRadius: "10px",
+        padding: "20px",
+        maxWidth: "400px",
+        margin: "20px auto",
+        backgroundColor: "default",
+        boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
+        border: "1px solid green",
+      }}
+    >
       <h3 style={estiloFormulario}>Agregar Nuevo Contacto</h3>
 
       {/* Input de nombre controlado */}
