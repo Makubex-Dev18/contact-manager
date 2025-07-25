@@ -1,5 +1,5 @@
 //paso1 para importar el hook de react para usar state
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import Header from "./components/Header.jsx";
 import ContactList from "./components/ContactList.jsx";
@@ -8,8 +8,25 @@ import ContactCard from "./components/ContactCard.jsx";
 import Filter from "./components/Filter.jsx";
 import ContactClear from "./components/ContactClear.jsx";
 import ContactForm from "./components/ContactForm.jsx";
+import { initializeApp } from "./utils/initializer";
+import SplashScreen from "./components/SplashScreen";
 
 export default function App() {
+  // Estado para controlar si la app está inicializando
+  const [isInitializing, setIsInitializing] = useState(true);
+
+  // useEffect se ejecuta al montar el componente
+  useEffect(() => {
+    async function startApp() {
+      const result = await initializeApp(5000);
+      setIsInitializing(result);
+    }
+    startApp();
+  }, []);
+
+  const [count, setCount] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
+
   //paso2 para crear el state de selectedContact
   const [selectedContact, setSelectedContact] = useState(
     null
