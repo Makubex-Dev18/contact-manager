@@ -8,11 +8,13 @@ export default function ContactCard({
     <div style={{ color: "blue", fontFamily: "Roboto" }}>
       {contact ? (
         <>
+          <p>Contacto Nro: {contact?.id}</p>
           <h3 style={{ fontSize: "34px", fontWeight: "bold" }}>
-            {contact?.name}
+            👤{contact?.fullname}
             <span>{contact?.isFavorite ? "⭐" : "☆"}</span>{" "}
           </h3>
-          <p>Telefono: {contact?.phone}</p>
+          <p>📞 {contact?.phonenumber}</p>
+          <p>✉️ {contact?.email}</p>
           <button onClick={() => toggleFavorite(contact.id)}>
             {contact?.isFavorite ? "Quitar Favorito" : "Agregar Favorito"}
           </button>

@@ -10,6 +10,8 @@ import ContactClear from "./components/ContactClear.jsx";
 import ContactForm from "./components/ContactForm.jsx";
 import { initializeApp } from "./utils/initializer";
 import SplashScreen from "./components/SplashScreen";
+import ContactEditForm from "./components/ContactEditForm.jsx";
+
 
 export default function App() {
   // Estado para controlar si la app está inicializando
@@ -67,7 +69,7 @@ export default function App() {
   };
 
   const [showOnlyFavorites, setShowOnlyFavorites] = useState(false);
-
+/*
   const [contacts, setContacts] = useState([
     {
       id: 1,
@@ -100,7 +102,8 @@ export default function App() {
       isFavorite: true,
     },
   ]);
-
+*/
+  const [contacts, setContacts] = useState([]);
   const estiloSection = {
     display: "flex",
     gap: 20,
@@ -118,7 +121,7 @@ export default function App() {
   //la funcion setSelectedContact es la que actualiza el estado de selectedContact
   const handleSelectContact = (contact) => {
     console.log({ contact });
-    alert(`Seleccionaste el contacto: ${contact.name}`);
+    alert(`Seleccionaste el contacto: ${contact.fullname}`);
     setSelectedContact(contact);
   };
 
@@ -198,13 +201,24 @@ export default function App() {
 
   // <p>{JSON.stringify(selectedContact)}</p>
 
+  function handleContactSelect(contact) {
+  setSelectedContact(contact);
+  console.log('Contacto seleccionado:', contact);
+}
+
+function handleContactCreated(newContact) {
+  setContacts(prev => [...prev, newContact]);
+  setSelectedContact(newContact);
+}
+
   return (
-    <div>
-      <Header filterFavorites={filterFavorites} contactsCount={contactsCount} />
-      <main>
-        <ContactForm handleAddContact={handleAddContact} />
+  <div>
+    <Header filterFavorites={filterFavorites} contactsCount={contactsCount} />
+    <main style={{ display: "flex", alignItems: "flex-start", minHeight: "80vh" }}>
+      {/* Sidebar: lista y controles */}
+      <div style={{ width: "260px", marginRight: "32px" }}>
+        <ContactForm onContactCreated={handleContactCreated} />
         <Filter handleChangeFavorite={handleChangeFavorite} />
-        <p />
         <ContactClear handleClearContact={handleClearContact} />
         <ContactList
           contactsToShow={contactsToShow}
@@ -213,9 +227,13 @@ export default function App() {
           selectedContact={selectedContact}
           onSelectContact={handleSelectContact}
         />
-        <h2 style={estiloSection}>Mis Lista de Contactos:</h2>
-
-        <section style={estiloSection}>
+      </div>
+      {/* Contenido principal centrado y arriba */}
+      <div style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center" }}>
+        <h2 style={{ ...estiloSection, marginLeft: 0, marginRight: 250, marginTop: 0 }}>
+          Mis Lista de Contactos:
+        </h2>
+        <section style={{ ...estiloSection, marginLeft: 0, marginRight: 250 }}>
           <ContactCard
             contact={selectedContact}
             toggleFavorite={toggleFavorite}
@@ -223,10 +241,11 @@ export default function App() {
             handleDeleteContact={handleDeleteContact}
           />
         </section>
-      </main>
-      <section style={estiloSection}>
-        <Footer />
-      </section>
-    </div>
-  );
+      </div>
+    </main>
+    <section style={estiloSection}>
+      <Footer />
+    </section>
+  </div>
+);
 }

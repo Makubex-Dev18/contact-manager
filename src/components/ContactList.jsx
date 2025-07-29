@@ -1,12 +1,8 @@
 import ContactCard from "./ContactCard";
+import  { useEffect, useState } from "react";
+import {fetchContacts} from "../services/contactService";
 
-export default function ContactList({
-  contactsToShow,
-  handleSelectContact,
-  selectedContact,
-  onSelectContact,
-}) {
-  const estiloSection = {
+const estiloSection = {
     display: "flex",
     gap: 20,
     justifyContent: "center",
@@ -16,12 +12,63 @@ export default function ContactList({
     marginRight: "350px",
     marginTop: 3,
     borderRadius: 8,
+    
   };
 
+
+export default function ContactList({
+  contactsToShow,
+  handleSelectContact,
+  selectedContact,
+  onSelectContact,
+  onContactSelect
+}) {
+  
+    const [contacts, setContacts] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  
+  async function loadContacts() {
+    setIsLoading(true);
+    setError(null);
+    
+    try {
+      const contacts = await fetchContacts();
+      setContacts(contacts);
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  useEffect(() => {   loadContacts(); }, []);
+
+
+
+  
   return (
+    
     <div>
-      <section style={estiloSection}>
-        {contactsToShow.map((contact) => {
+       <div>
+        <h3>📞 Agenda de Contactos</h3>
+        <button onClick={loadContacts} disabled={isLoading}>
+          {isLoading ? 'Cargando...' : '🔄 Cargar'}
+        </button>
+      </div>
+
+      {isLoading && <p>🔄 Cargando contactos...</p>}
+      
+      {error && (
+        <>
+          <p>❌ Error: {error}</p>
+          <button onClick={loadContacts}>🔄 Reintentar</button>
+        </>
+      )}
+
+      <section >
+        {contacts.map((contact) => {
           const estiloBoton = {
             backgroundColor:
               selectedContact?.id === contact.id ? "#2f7cff" : "#3adabb",
@@ -29,6 +76,8 @@ export default function ContactList({
             padding: "10px 12px",
             color: "#fff",
             borderRadius: 8,
+            marginTop: 10,
+            marginBottom: 10,
           };
 
           return (
@@ -43,6 +92,9 @@ export default function ContactList({
           );
         })}
       </section>
+      
+  
     </div>
+
   );
 }
