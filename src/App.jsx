@@ -11,7 +11,10 @@ import ContactForm from "./components/ContactForm.jsx";
 import { initializeApp } from "./utils/initializer";
 import SplashScreen from "./components/SplashScreen";
 import ContactEditForm from "./components/ContactEditForm.jsx";
-
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import HomePage from "./pages/HomePage.jsx";
+import ContactsPage from "./pages/ContactsPage.jsx";
+import Nosotros from "./pages/Nosotros.jsx";
 
 export default function App() {
   // Estado para controlar si la app está inicializando
@@ -69,7 +72,7 @@ export default function App() {
   };
 
   const [showOnlyFavorites, setShowOnlyFavorites] = useState(false);
-/*
+  /*
   const [contacts, setContacts] = useState([
     {
       id: 1,
@@ -202,50 +205,39 @@ export default function App() {
   // <p>{JSON.stringify(selectedContact)}</p>
 
   function handleContactSelect(contact) {
-  setSelectedContact(contact);
-  console.log('Contacto seleccionado:', contact);
-}
+    setSelectedContact(contact);
+    console.log("Contacto seleccionado:", contact);
+  }
 
-function handleContactCreated(newContact) {
-  setContacts(prev => [...prev, newContact]);
-  setSelectedContact(newContact);
-}
+  function handleContactCreated(newContact) {
+    setContacts((prev) => [...prev, newContact]);
+    setSelectedContact(newContact);
+  }
 
   return (
-  <div>
-    <Header filterFavorites={filterFavorites} contactsCount={contactsCount} />
-    <main style={{ display: "flex", alignItems: "flex-start", minHeight: "80vh" }}>
-      {/* Sidebar: lista y controles */}
-      <div style={{ width: "260px", marginRight: "32px" }}>
-        <ContactForm onContactCreated={handleContactCreated} />
-        <Filter handleChangeFavorite={handleChangeFavorite} />
-        <ContactClear handleClearContact={handleClearContact} />
-        <ContactList
-          contactsToShow={contactsToShow}
-          toggleFavorite={toggleFavorite}
-          handleSelectContact={handleSelectContact}
-          selectedContact={selectedContact}
-          onSelectContact={handleSelectContact}
-        />
-      </div>
-      {/* Contenido principal centrado y arriba */}
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center" }}>
-        <h2 style={{ ...estiloSection, marginLeft: 0, marginRight: 250, marginTop: 0 }}>
-          Mis Lista de Contactos:
-        </h2>
-        <section style={{ ...estiloSection, marginLeft: 0, marginRight: 250 }}>
-          <ContactCard
-            contact={selectedContact}
-            toggleFavorite={toggleFavorite}
-            handleNextContact={handleNextContact}
-            handleDeleteContact={handleDeleteContact}
-          />
-        </section>
-      </div>
-    </main>
-    <section style={estiloSection}>
-      <Footer />
-    </section>
-  </div>
-);
+    <>
+      {isInitializing ?  <SplashScreen isLoading={isInitializing} />:
+       (
+        <Router  basename="/contact-manager">
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/Nosotros" element={<Nosotros />} />
+            <Route path="/contacts" element={<ContactsPage    filterFavorites={filterFavorites}
+      contactsCount={contactsCount}
+      handleContactCreated={handleContactCreated}
+      handleChangeFavorite={handleChangeFavorite}
+      handleClearContact={handleClearContact}
+      contactsToShow={contactsToShow}
+      toggleFavorite={toggleFavorite}
+      handleSelectContact={handleSelectContact}
+      selectedContact={selectedContact}
+      handleNextContact={handleNextContact}
+      handleDeleteContact={handleDeleteContact}
+      estiloSection={estiloSection}/>} />
+          </Routes>
+        </Router>
+      )
+      }
+    </>
+  )
 }

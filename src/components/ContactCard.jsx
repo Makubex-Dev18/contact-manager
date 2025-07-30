@@ -5,7 +5,10 @@ export default function ContactCard({
   handleDeleteContact,
 }) {
   return (
-    <div style={{ color: "blue", fontFamily: "Roboto" }}>
+    <div
+      className="mt-3 border border-green-500 rounded-xl p-6 max-w-[600px] mx-auto my-3 bg-white shadow-md text-center flex flex-col items-center gap-4"
+      style={{ color: "blue", fontFamily: "Roboto" }}
+    >
       {contact ? (
         <>
           <p>Contacto Nro: {contact?.id}</p>

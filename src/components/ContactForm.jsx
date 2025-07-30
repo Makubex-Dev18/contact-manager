@@ -81,18 +81,9 @@ export default function ContactForm({ handleAddContact, onContactCreated }) {
   }
 
   return (
-    <form
+    <form className="border border-green-500 rounded-xl p-5 max-w-[400px] mx-auto my-5 bg-white shadow-md"
       onSubmit={handleSubmit}
-      style={{
-        border: "1px solid #ccc",
-        borderRadius: "10px",
-        padding: "20px",
-        maxWidth: "400px",
-        margin: "20px auto",
-        backgroundColor: "default",
-        boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
-        border: "1px solid green",
-      }}
+      
     >
       <h3 style={estiloFormulario}>Agregar Nuevo Contacto</h3>
       <div style={estiloFormulario}>
@@ -111,7 +102,7 @@ export default function ContactForm({ handleAddContact, onContactCreated }) {
       {errors.name && (
         <p style={{ color: "red", textAlign: "center" }}>{errors.name}</p>
       )}
-      <div style={estiloFormulario}>
+      <div className="flex justify-center m-3 gap-2">
         <label>Teléfono:</label>
         <input
           type="text"
@@ -127,7 +118,7 @@ export default function ContactForm({ handleAddContact, onContactCreated }) {
       {errors.phone && (
         <p style={{ color: "red", textAlign: "center" }}>{errors.phone}</p>
       )}
-      <div style={estiloFormulario}>
+      <div className="flex justify-center m-3 gap-2">
         <label>Email:</label>
         <input
           type="email"
@@ -136,14 +127,14 @@ export default function ContactForm({ handleAddContact, onContactCreated }) {
           onChange={handleInputChange}
           placeholder="Correo electrónico"
           disabled={isSaving}
-          style={estiloFormulario}
+          
         />
       </div>
       {errors.email && (
         <p style={{ color: "red", textAlign: "center" }}>{errors.email}</p>
       )}
 
-      <div style={estiloFormulario}>
+      <div className="flex justify-center m-3 gap-2">
         <label>Tipo:</label>
         <select
           name="type"

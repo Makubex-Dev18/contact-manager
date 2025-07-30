@@ -67,7 +67,7 @@ export default function ContactList({
         </>
       )}
 
-      <section >
+      <section className="mt-1 border border-green-500 rounded-xl p-2 max-w-[200px] mx-auto my-3 bg-white shadow-md text-center flex flex-col items-center gap-4">
         {contacts.map((contact) => {
           const estiloBoton = {
             backgroundColor:

@@ -12,7 +12,7 @@ const SplashScreen = ({ isLoading, error }) => {
         </div>
       ) : (
         <div>
-          <h2>
+          <h2 className="text-black text-2xl text-center">
             📇 Iniciando Contact Manager...
           </h2>
         </div>

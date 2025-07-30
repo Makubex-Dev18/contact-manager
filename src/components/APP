@@ -1,0 +1,66 @@
+(
+         
+        <div>
+          <Header
+            filterFavorites={filterFavorites}
+            contactsCount={contactsCount}
+          />
+          <main
+            style={{
+              display: "flex",
+              alignItems: "flex-start",
+              minHeight: "80vh",
+            }}
+          >
+            
+            <div style={{ width: "260px", marginRight: "32px" }}>
+              <ContactForm onContactCreated={handleContactCreated} />
+              <Filter handleChangeFavorite={handleChangeFavorite} />
+              <ContactClear handleClearContact={handleClearContact} />
+              <ContactList
+                contactsToShow={contactsToShow}
+                toggleFavorite={toggleFavorite}
+                handleSelectContact={handleSelectContact}
+                selectedContact={selectedContact}
+                onSelectContact={handleSelectContact}
+              />
+            </div>
+           
+
+            <div
+              style={{
+                flex: 1,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <h2
+                style={{
+                  ...estiloSection,
+                  marginLeft: 0,
+                  marginRight: 250,
+                  marginTop: 0,
+                }}
+              >
+                Mis Lista de Contactos:
+              </h2>
+              <section
+                style={{ ...estiloSection, marginLeft: 0, marginRight: 250 }}
+              >
+                <ContactCard
+                  contact={selectedContact}
+                  toggleFavorite={toggleFavorite}
+                  handleNextContact={handleNextContact}
+                  handleDeleteContact={handleDeleteContact}
+                />
+              </section>
+            </div>
+          </main>
+          <section style={estiloSection}>
+            <Footer />
+          </section>
+        </div>
+      )}
+    </>
+  );
