@@ -67,7 +67,7 @@ export default function ContactList({
         </>
       )}
 
-      <section className="mt-1 border border-green-500 rounded-xl p-2 max-w-[200px] mx-auto my-3 bg-white shadow-md text-center flex flex-col items-center gap-4">
+      <section className="mt-1 border border-green-500 rounded-xl p-4 max-w-[500px] mx-auto my-3 bg-white shadow-md text-center flex flex-col items-center gap-4">
         {contacts.map((contact) => {
           const estiloBoton = {
             backgroundColor:
@@ -86,7 +86,10 @@ export default function ContactList({
                 style={estiloBoton}
                 onClick={() => onSelectContact(contact)}
               >
-                Contact {contact.id}
+                Contact {contact.id} 
+                <p>👤{contact?.fullname}</p>
+          <p>📞 {contact?.phonenumber}</p>
+          <p>✉️ {contact?.email}</p>
               </button>
             </div>
           );

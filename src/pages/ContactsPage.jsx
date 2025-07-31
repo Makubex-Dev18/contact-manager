@@ -1,5 +1,5 @@
-import React from 'react'
-import ContactList from '../components/ContactList'
+import React from "react";
+import ContactList from "../components/ContactList";
 import { useState, useEffect } from "react";
 
 import Header from "../components/Header.jsx";
@@ -14,6 +14,8 @@ import ContactEditForm from "../components/ContactEditForm.jsx";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import HomePage from "../pages/HomePage.jsx";
 import Nosotros from "../pages/Nosotros.jsx";
+import ContactSorter from "../components/ContactSorter.jsx";
+import OrderButtons from "../components/OrderButtons.jsx";
 
 export default function ContactsPage({
   filterFavorites,
@@ -28,6 +30,7 @@ export default function ContactsPage({
   handleNextContact,
   handleDeleteContact,
   estiloSection,
+  handleSort
 }) {
   return (
     <main className="flex justify-center items-center min-h-screen text-black">
@@ -44,6 +47,19 @@ export default function ContactsPage({
             <ContactForm onContactCreated={handleContactCreated} />
             <Filter handleChangeFavorite={handleChangeFavorite} />
             <ContactClear handleClearContact={handleClearContact} />
+
+            {/* ordenamiento */}
+            <ContactSorter
+              sortAsc={() => {
+                const sorted = [...contactsToShow].sort((a, b) => a.id - b.id);
+                handleSort(sorted);
+              }}
+              sortDesc={() => {
+                const sorted = [...contactsToShow].sort((a, b) => b.id - a.id);
+                handleSort(sorted);
+              }}
+            />
+           
             <ContactList
               contactsToShow={contactsToShow}
               toggleFavorite={toggleFavorite}
@@ -55,7 +71,6 @@ export default function ContactsPage({
 
           {/* Contenido principal */}
           <div className="flex-1 flex flex-col items-center text-center">
-            
             <section
               style={{ ...estiloSection, marginLeft: 0, marginRight: 250 }}
             >

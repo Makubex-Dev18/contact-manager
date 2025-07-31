@@ -15,6 +15,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage.jsx";
 import ContactsPage from "./pages/ContactsPage.jsx";
 import Nosotros from "./pages/Nosotros.jsx";
+import contactSorter from './components/ContactSorter.jsx';
 
 export default function App() {
   // Estado para controlar si la app está inicializando
@@ -133,6 +134,10 @@ export default function App() {
   };
 
   let contactsToShow = contacts;
+//const [contactsToShow, setContactsToShow] = useState([]);
+
+
+
 
   const contactsCount = () => contacts.length;
 
@@ -214,6 +219,19 @@ export default function App() {
     setSelectedContact(newContact);
   }
 
+  const sortByIdAsc = () => {
+  const sorted = [...contacts].sort((a, b) => a.id - b.id);
+  setContacts(sorted);
+};
+
+const sortByIdDesc = () => {
+  const sorted = [...contacts].sort((a, b) => b.id - a.id);
+  setContacts(sorted);
+};
+function handleSort(newOrder) {
+  setContacts(newOrder);
+}
+
   return (
     <>
       {isInitializing ?  <SplashScreen isLoading={isInitializing} />:
@@ -233,6 +251,9 @@ export default function App() {
       selectedContact={selectedContact}
       handleNextContact={handleNextContact}
       handleDeleteContact={handleDeleteContact}
+      handleSort={handleSort}
+      contacts={contacts}
+      setContacts={setContacts}
       estiloSection={estiloSection}/>} />
           </Routes>
         </Router>

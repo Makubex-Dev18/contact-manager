@@ -1,14 +1,15 @@
 # React + Vite
 
-# README completo incluyendo:
-
-# Stack tecnológico utilizado
-
 react,js
 
-# Instrucciones de instalación y uso
+# Proyecto Modulo 2
+Criterios aceptacion:
 
-ninguna
+Validacion Formulario
+Implementacion de paginacion (Nosotros-ContactPage)
+Guardar Contacto y Modificar Contacto -APIS
+Ordenamiento de card por id
+
 
 # Funcionalidades implementadas (core + retos)
 
